@@ -44,4 +44,8 @@ public class OrderedProduct {
     @Column(nullable = false)
     private Date updatedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
+
 }
