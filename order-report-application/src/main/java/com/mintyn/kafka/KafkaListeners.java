@@ -4,7 +4,6 @@ import com.mintyn.dto.ProductOrderReportDto;
 import com.mintyn.exception.CommonsModuleException;
 import com.mintyn.service.ProductOrderReportService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -21,7 +20,7 @@ public class KafkaListeners {
             if(!ObjectUtils.isEmpty(productOrderReportDto)){
                 productOrderReportService.saveProductOrder(productOrderReportDto);
             } else {
-                throw new CommonsModuleException("Can not create Report Order", HttpStatus.BAD_REQUEST);
+                throw  CommonsModuleException.badRequest("invalid.order");
             }
     }
 

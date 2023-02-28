@@ -6,11 +6,13 @@ import com.mintyn.exception.CommonsModuleException;
 import com.mintyn.model.Product;
 import com.mintyn.repositories.ProductRepository;
 import com.mintyn.service.ProductService;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductServiceImplementation implements ProductService {
 
     private final ProductRepository productRepository;
