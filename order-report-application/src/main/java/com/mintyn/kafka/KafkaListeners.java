@@ -1,9 +1,10 @@
 package com.mintyn.kafka;
 
+import com.mintyn.dto.ProductOrderReportDto;
+import com.mintyn.exception.CommonsModuleException;
+import com.mintyn.service.ProductOrderReportService;
 import lombok.RequiredArgsConstructor;
-import org.mintyn.app.configuration.config.OrderResponse;
-import org.mintyn.app.configuration.exception.ApiBadRequestException;
-import org.mintyn.order.report.service.ReportService;
+import org.springframework.http.HttpStatus;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -12,18 +13,16 @@ import org.springframework.util.ObjectUtils;
 @RequiredArgsConstructor
 public class KafkaListeners {
 
-    private final ReportService orderListenerService;
+    private final ProductOrderReportService productOrderReportService;
 
     @KafkaListener(topics = "order", groupId = "mintyn", containerFactory = "reportListenerContainerFactory")
-    void listener(OrderResponse orderResponse){
-        try{
+    void listener(ProductOrderReportDto productOrderReportDto) throws CommonsModuleException {
 
-            if(!ObjectUtils.isEmpty(orderResponse)){
-                orderListenerService.saveOrder(orderResponse);
+            if(!ObjectUtils.isEmpty(productOrderReportDto)){
+                productOrderReportService.saveProductOrder(productOrderReportDto);
+            } else {
+                throw new CommonsModuleException("Can not create Report Order", HttpStatus.BAD_REQUEST);
             }
-        }catch(ApiBadRequestException err){
-            throw new ApiBadRequestException("Can not create Report Order");
-        };
     }
 
 }
