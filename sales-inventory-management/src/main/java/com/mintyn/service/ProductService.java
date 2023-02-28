@@ -1,16 +1,21 @@
 package com.mintyn.service;
 
 import com.mintyn.dto.ProductDto;
+import com.mintyn.dto.UpdateProductDto;
+import com.mintyn.exception.CommonsModuleException;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public interface ProductService {
-    ProductDto createProduct(ProductDto productDto);
+    ProductDto createProduct(ProductDto productDto) throws CommonsModuleException;
 
-//    ProductDto updateProduct(Long id, UpdateProductRequest productRequest);
+    ProductDto getProduct(Long productId) throws CommonsModuleException;
+
     List<ProductDto> getAllProducts();
-    ProductDto getProduct(Long productId);
 
-    ProductDto updateProductPrice(Long id, BigDecimal productPrice);
+    ProductDto updateProductPrice(Long id, BigDecimal productPrice) throws CommonsModuleException;
+
+    UpdateProductDto updateProduct(Long id, UpdateProductDto updateProductDto) throws CommonsModuleException;
+
 }
