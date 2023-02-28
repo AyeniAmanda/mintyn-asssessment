@@ -3,6 +3,7 @@ package com.mintyn.service.serviceImpl;
 import com.mintyn.dto.OrderDto;
 import com.mintyn.dto.OrderResponseDto;
 import com.mintyn.exception.CommonsModuleException;
+import com.mintyn.kafka.report.ReportSenderService;
 import com.mintyn.model.OrderedProduct;
 import com.mintyn.model.Product;
 import com.mintyn.repositories.OrderedProductRepository;
@@ -26,6 +27,9 @@ public class OrderedProductServiceImplementation implements OrderedProductServic
 
     private final OrderMapper orderMapper;
 
+    private final ReportSenderService reportSenderService;
+
+
     public List<OrderResponseDto> createOrder(List<OrderDto> orderRequests) throws CommonsModuleException {
         List<OrderResponseDto> orderResponses = new ArrayList<>();
 
@@ -33,25 +37,31 @@ public class OrderedProductServiceImplementation implements OrderedProductServic
             Product product = productRepository.findById(newOrderRequest.getProductId())
                     .orElseThrow(() ->new CommonsModuleException("product.does.not.exists",HttpStatus.NOT_FOUND));
 
-            if (product.getQuantity() < newOrderRequest.getOrderQuantity()){
-                throw new CommonsModuleException("invalid.quantity " ,HttpStatus.BAD_REQUEST);
+            int orderQuantity = newOrderRequest.getOrderQuantity();
+            int availableQuantity = product.getQuantity();
+
+            if (availableQuantity < orderQuantity){
+                throw new CommonsModuleException("invalid.quantity", HttpStatus.BAD_REQUEST);
             }
 
-            OrderedProduct order = orderMapper.mapToOrderDto(newOrderRequest, product);
-            product.setQuantity(product.getQuantity() - order.getOrderQuantity());
+            product.setQuantity(availableQuantity - orderQuantity);
 
-            product = productRepository.saveAndFlush(product);
+            productRepository.save(product);
+
+            OrderedProduct order = orderMapper.mapToOrderDto(newOrderRequest, product);
 
             order = orderedProductRepository.save(order);
 
             OrderResponseDto orderResponse = orderMapper.mapToOrderResponse(order);
             orderResponses.add(orderResponse);
 
-//            reportSenderService.sendOrderReport(orderResponse);
+            reportSenderService.sendOrderReport(orderResponse);
+
         }
 
         return orderResponses;
     }
+
 
     @Override
     public OrderResponseDto getOrder(Long id) throws CommonsModuleException {
@@ -65,12 +75,14 @@ public class OrderedProductServiceImplementation implements OrderedProductServic
     @Override
     public List<OrderResponseDto> getAllOrders() {
         List<OrderedProduct> orders = orderedProductRepository.findAll();
-        List<OrderResponseDto> orderResponses = new ArrayList<>();
+        List<OrderResponseDto> orderResponses = new ArrayList<>(orders.size());
 
         for (OrderedProduct order : orders) {
             orderResponses.add(orderMapper.mapToOrderResponse(order));
         }
+
         return orderResponses;
     }
+
 
 }
