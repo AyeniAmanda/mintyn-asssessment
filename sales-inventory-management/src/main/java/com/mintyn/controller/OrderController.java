@@ -17,16 +17,16 @@ public class OrderController {
 
     @PostMapping("/create-order")
     public ResponseDto<?> createOrder(@RequestBody List<OrderDto> orderDto) throws CommonsModuleException {
-        return  ResponseDto.wrapSuccessResult(orderedProductService.createOrder(orderDto), "request.successful");
+        return ResponseDto.wrapSuccessResult(orderedProductService.createOrder(orderDto), "request.successful");
     }
 
     @GetMapping("/orders")
-    public ResponseDto<?> getAllOrders(){
-        return  ResponseDto.wrapSuccessResult(orderedProductService.getAllOrders(), "request.successful");
+    public ResponseDto<?> getAllOrders() {
+        return ResponseDto.wrapSuccessResult(orderedProductService.getAllOrders(), "request.successful");
     }
 
     @GetMapping("/orders/{id}")
     public ResponseDto<?> getOrder(@PathVariable("id") Long id) throws CommonsModuleException {
-        return  ResponseDto.wrapSuccessResult(orderedProductService.getOrder(id), "request.successful");
+        return ResponseDto.wrapSuccessResult(orderedProductService.getOrder(id), "request.successful");
     }
 }

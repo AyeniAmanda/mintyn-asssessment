@@ -12,8 +12,6 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 
-
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -22,7 +20,7 @@ public class ReportSenderImpl implements ReportSenderService {
     private final KafkaTemplate<String, OrderResponseDto> kafkaTemplate;
 
     @Override
-    public void sendOrderReport(OrderResponseDto orderResponseDto){
+    public void sendOrderReport(OrderResponseDto orderResponseDto) {
         String topicName = "order";
         log.info("Sending message='{}' to topic='{}'", orderResponseDto, topicName);
         ListenableFuture<SendResult<String, OrderResponseDto>> kafkaResultFuture = (ListenableFuture<SendResult<String, OrderResponseDto>>) kafkaTemplate.send(topicName, orderResponseDto);
@@ -30,7 +28,7 @@ public class ReportSenderImpl implements ReportSenderService {
     }
 
     private void addCallback(String topicName, OrderResponseDto orderResponseDto,
-                          ListenableFuture<SendResult<String, OrderResponseDto>> kafkaResultFuture) {
+                             ListenableFuture<SendResult<String, OrderResponseDto>> kafkaResultFuture) {
         kafkaResultFuture.addCallback(new ListenableFutureCallback<>() {
             @Override
             public void onFailure(@NonNull Throwable throwable) {

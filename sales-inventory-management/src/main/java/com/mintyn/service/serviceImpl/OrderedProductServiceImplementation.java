@@ -35,12 +35,12 @@ public class OrderedProductServiceImplementation implements OrderedProductServic
 
         for (OrderDto newOrderRequest : orderRequests) {
             Product product = productRepository.findById(newOrderRequest.getProductId())
-                    .orElseThrow(() ->new CommonsModuleException("product.does.not.exists",HttpStatus.NOT_FOUND));
+                    .orElseThrow(() -> new CommonsModuleException("product.does.not.exists", HttpStatus.NOT_FOUND));
 
             int orderQuantity = newOrderRequest.getOrderQuantity();
             int availableQuantity = product.getQuantity();
 
-            if (availableQuantity < orderQuantity){
+            if (availableQuantity < orderQuantity) {
                 throw new CommonsModuleException("invalid.quantity", HttpStatus.BAD_REQUEST);
             }
 

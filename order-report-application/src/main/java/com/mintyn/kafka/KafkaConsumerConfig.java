@@ -27,25 +27,24 @@ public class KafkaConsumerConfig {
     @Value("${kafka-config.group-id}")
     private String groupId;
 
-    public Map<String, Object> consumerConfig(){
+    public Map<String, Object> consumerConfig() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-//        props.put(JsonDeserializer.TYPE_MAPPINGS, "OrderResponse:org.mintyn.app.configuration.config.OrderResponse");
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 
         return props;
     }
 
     @Bean
-    public ConsumerFactory<String, ProductOrderReportDto> consumerFactory(){
+    public ConsumerFactory<String, ProductOrderReportDto> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfig());
     }
 
     @Bean(name = "reportListenerContainerFactory")
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, ProductOrderReportDto>> factory(){
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, ProductOrderReportDto>> factory() {
         ConcurrentKafkaListenerContainerFactory<String, ProductOrderReportDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;

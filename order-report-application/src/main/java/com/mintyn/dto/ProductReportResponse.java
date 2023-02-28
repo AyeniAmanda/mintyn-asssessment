@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 @Data
 @AllArgsConstructor
 public class ProductReportResponse {
-
     private String message;
-
     private HttpStatus status;
 }

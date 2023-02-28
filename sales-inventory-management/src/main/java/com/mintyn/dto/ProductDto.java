@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -17,7 +18,6 @@ public class ProductDto {
     private BigDecimal productPrice;
     private Integer productQuantity;
     private String productDescription;
-
 
 
     public static ProductDto toDto(Product product) {

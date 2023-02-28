@@ -7,8 +7,6 @@ import com.mintyn.model.Product;
 import com.mintyn.repositories.ProductRepository;
 import com.mintyn.service.ProductService;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -66,17 +64,17 @@ public class ProductServiceImplementation implements ProductService {
     @Override
     public ProductDto getProduct(Long productId) throws CommonsModuleException {
         Product productOptional = productRepository.findById(productId)
-                .orElseThrow(() -> new CommonsModuleException("product.does.not.exists",HttpStatus.NOT_FOUND));
-            ProductDto productDto = new ProductDto();
-            BeanUtils.copyProperties(productOptional, productDto);
-            return productDto;
+                .orElseThrow(() -> new CommonsModuleException("product.does.not.exists", HttpStatus.NOT_FOUND));
+        ProductDto productDto = new ProductDto();
+        BeanUtils.copyProperties(productOptional, productDto);
+        return productDto;
     }
 
 
     @Override
     public ProductDto updateProductPrice(Long id, BigDecimal productPrice) throws CommonsModuleException {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new CommonsModuleException("product.does.not.exists",HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CommonsModuleException("product.does.not.exists", HttpStatus.NOT_FOUND));
         product.setCostPrice(productPrice);
         Product updatedProduct = productRepository.save(product);
         ProductDto productDto = new ProductDto();
@@ -90,7 +88,7 @@ public class ProductServiceImplementation implements ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new CommonsModuleException("product.does.not.exists", HttpStatus.NOT_FOUND));
         BeanUtils.copyProperties(updateProductDto, product);
-          productRepository.save(product);
+        productRepository.save(product);
         return new UpdateProductDto();
     }
 

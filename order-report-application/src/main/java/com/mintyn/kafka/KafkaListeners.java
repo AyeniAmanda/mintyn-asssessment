@@ -17,11 +17,11 @@ public class KafkaListeners {
     @KafkaListener(topics = "order", groupId = "mintyn", containerFactory = "reportListenerContainerFactory")
     void listener(ProductOrderReportDto productOrderReportDto) throws CommonsModuleException {
 
-            if(!ObjectUtils.isEmpty(productOrderReportDto)){
-                productOrderReportService.saveProductOrder(productOrderReportDto);
-            } else {
-                throw  CommonsModuleException.badRequest("invalid.order");
-            }
+        if (!ObjectUtils.isEmpty(productOrderReportDto)) {
+            productOrderReportService.saveProductOrder(productOrderReportDto);
+        } else {
+            throw CommonsModuleException.badRequest("invalid.order");
+        }
     }
 
 }

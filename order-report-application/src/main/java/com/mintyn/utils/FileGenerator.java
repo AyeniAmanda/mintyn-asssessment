@@ -11,7 +11,20 @@ import java.util.List;
 @Component
 public class FileGenerator {
 
-    public void generateTerminalRequestData(List<ProductOrderReport> reports, String range){
+    private static CellStyle getBasicHeaderStyle(Workbook workbook) {
+        CellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setBorderTop(BorderStyle.valueOf((short) 6));
+        headerStyle.setBorderBottom(BorderStyle.valueOf((short) 1));
+        Font headerFont = workbook.createFont();
+        headerFont.setFontHeightInPoints((short) 12);
+        headerFont.setBold(true);
+        headerStyle.setFont(headerFont);
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.forInt(1));
+        return headerStyle;
+    }
+
+    public void generateTerminalRequestData(List<ProductOrderReport> reports, String range) {
 
         try {
 
@@ -67,11 +80,11 @@ public class FileGenerator {
             for (int i = 0, l = headers.length; i < l; i++) {
                 sheet.autoSizeColumn(i);
             }
-            FileOutputStream out = new FileOutputStream("Order Report for range: "+ range + ".xlsx");
+            FileOutputStream out = new FileOutputStream("Order Report for range: " + range + ".xlsx");
 
             workbook.write(out);
             out.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -79,19 +92,6 @@ public class FileGenerator {
 
     private String[] orderReportHeaders() {
         return new String[]{"Date Created", "Customer Name", "Customer PhoneNo", "Product Name",
-         "Product Price", "Order Quantity", "Total Price For Order"};
-    }
-
-    private static CellStyle getBasicHeaderStyle(Workbook workbook) {
-        CellStyle headerStyle = workbook.createCellStyle();
-        headerStyle.setBorderTop(BorderStyle.valueOf((short) 6));
-        headerStyle.setBorderBottom(BorderStyle.valueOf((short)1));
-        Font headerFont = workbook.createFont();
-        headerFont.setFontHeightInPoints((short)12);
-        headerFont.setBold(true);
-        headerStyle.setFont(headerFont);
-        headerStyle.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());
-        headerStyle.setFillPattern(FillPatternType.forInt(1));
-        return headerStyle;
+                "Product Price", "Order Quantity", "Total Price For Order"};
     }
 }

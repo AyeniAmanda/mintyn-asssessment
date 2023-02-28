@@ -14,20 +14,20 @@ import java.util.Map;
 @Configuration
 public class KafkaTopicConfig {
 
-        @Value("${kafka-config.bootstrap-servers}")
-        private String bootstrapServers;
+    @Value("${kafka-config.bootstrap-servers}")
+    private String bootstrapServers;
 
-        @Bean
-        public KafkaAdmin kafkaAdmin() {
-            Map<String, Object> configs = new HashMap<>();
-            configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-            return new KafkaAdmin(configs);
-        }
-
-        @Bean
-        public NewTopic orderTopic(){
-            return TopicBuilder.name("order").build();
-        }
+    @Bean
+    public KafkaAdmin kafkaAdmin() {
+        Map<String, Object> configs = new HashMap<>();
+        configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        return new KafkaAdmin(configs);
     }
+
+    @Bean
+    public NewTopic orderTopic() {
+        return TopicBuilder.name("order").build();
+    }
+}
 
 

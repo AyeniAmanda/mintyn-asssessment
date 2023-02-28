@@ -12,11 +12,8 @@ import lombok.Setter;
 public class OrderDto {
     private Long productId;
     private String customerName;
-
     private String customerPhoneNumber;
-
     private String productName;
-
     private Integer orderQuantity;
 
 }

@@ -21,7 +21,7 @@ public class ReportServiceController {
     public ResponseDto<?> generateReport(
             @PathVariable("begin") LocalDate begin,
             @PathVariable("end") LocalDate end) throws CommonsModuleException {
-        return  ResponseDto.wrapSuccessResult(productOrderReportService.exportProductOrderReportAsExcelFile(begin, end), "request.successful");
+        return ResponseDto.wrapSuccessResult(productOrderReportService.exportProductOrderReportAsExcelFile(begin, end), "request.successful");
     }
 
 }

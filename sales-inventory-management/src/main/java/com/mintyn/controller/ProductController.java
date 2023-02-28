@@ -13,23 +13,25 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+
     @PostMapping("/add-product")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseDto<ProductDto> addProduct(@RequestBody  ProductDto inventoryProductDto) throws CommonsModuleException {
+    public ResponseDto<ProductDto> addProduct(@RequestBody ProductDto inventoryProductDto) throws CommonsModuleException {
         return ResponseDto.wrapSuccessResult(productService.createProduct(inventoryProductDto), "request.successful");
     }
 
     @PutMapping("/update-product/{id}")
     public ResponseDto<UpdateProductDto> updateProduct(@PathVariable("id") Long id, @RequestBody UpdateProductDto productRequest) throws CommonsModuleException {
-        return ResponseDto.wrapSuccessResult(productService.updateProduct(id, productRequest),"request.successful");
+        return ResponseDto.wrapSuccessResult(productService.updateProduct(id, productRequest), "request.successful");
     }
+
     @GetMapping("/products")
-    public ResponseDto<?> getAllProducts(){
-        return ResponseDto.wrapSuccessResult(productService.getAllProducts(),"request.successful");
+    public ResponseDto<?> getAllProducts() {
+        return ResponseDto.wrapSuccessResult(productService.getAllProducts(), "request.successful");
     }
 
     @GetMapping("/products/{id}")
     public ResponseDto<?> getProduct(@PathVariable("id") Long id) throws CommonsModuleException {
-        return  ResponseDto.wrapSuccessResult(productService.getProduct(id),"request.successful");
+        return ResponseDto.wrapSuccessResult(productService.getProduct(id), "request.successful");
     }
 }

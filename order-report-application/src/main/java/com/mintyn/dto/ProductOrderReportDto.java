@@ -13,16 +13,10 @@ public class ProductOrderReportDto {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate orderCreatedDate;
-
     private String customerName;
-
     private String customerPhoneNumber;
-
     private String productName;
-
     private Integer orderQuantity;
-
     private BigDecimal productPrice;
-
     private BigDecimal totalProductPrice;
 }
