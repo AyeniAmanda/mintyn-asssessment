@@ -29,7 +29,7 @@ public class Product {
     @Column(name = "product_description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "product_price", nullable = false)
+    @Column(name = "product_price")
     private BigDecimal costPrice;
 
     @Column(name = "product_quantity")

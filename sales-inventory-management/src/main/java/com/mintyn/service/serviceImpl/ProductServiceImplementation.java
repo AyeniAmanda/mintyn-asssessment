@@ -24,10 +24,10 @@ public class ProductServiceImplementation implements ProductService {
     private final ProductRepository productRepository;
 
     private void validateProductRequest(ProductDto productDto) throws CommonsModuleException {
-        String productId = productDto.getProductName().toLowerCase();
-        BigDecimal productPrice = productDto.getProductPrice();
+        long productId = productDto.getProductId();
+        BigDecimal productPrice = productDto.getCostPrice();
 
-        if (productRepository.existsById(Long.valueOf(productId))) {
+        if (productRepository.existsById(productId)) {
             throw new CommonsModuleException("product.exists", HttpStatus.BAD_REQUEST);
         }
 
