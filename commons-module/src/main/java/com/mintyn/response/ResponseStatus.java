@@ -1,4 +1,4 @@
-package com.mintyn;
+package com.mintyn.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

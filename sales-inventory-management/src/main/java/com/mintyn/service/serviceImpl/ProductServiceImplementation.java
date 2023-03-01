@@ -6,12 +6,12 @@ import com.mintyn.exception.CommonsModuleException;
 import com.mintyn.model.Product;
 import com.mintyn.repositories.ProductRepository;
 import com.mintyn.service.ProductService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,6 @@ public class ProductServiceImplementation implements ProductService {
         return productDto;
     }
 
-
     @Override
     public List<ProductDto> getAllProducts() {
         List<Product> productList = productRepository.findAll();
@@ -60,7 +59,6 @@ public class ProductServiceImplementation implements ProductService {
         return productDtoList;
     }
 
-
     @Override
     public ProductDto getProduct(Long productId) throws CommonsModuleException {
         Product productOptional = productRepository.findById(productId)
@@ -69,7 +67,6 @@ public class ProductServiceImplementation implements ProductService {
         BeanUtils.copyProperties(productOptional, productDto);
         return productDto;
     }
-
 
     @Override
     public ProductDto updateProductPrice(Long id, BigDecimal productPrice) throws CommonsModuleException {
@@ -82,7 +79,6 @@ public class ProductServiceImplementation implements ProductService {
         return productDto;
     }
 
-
     @Override
     public UpdateProductDto updateProduct(Long id, UpdateProductDto updateProductDto) throws CommonsModuleException {
         Product product = productRepository.findById(id)
@@ -91,5 +87,4 @@ public class ProductServiceImplementation implements ProductService {
         productRepository.save(product);
         return new UpdateProductDto();
     }
-
 }

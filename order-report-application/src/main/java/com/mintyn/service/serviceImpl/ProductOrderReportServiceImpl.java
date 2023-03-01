@@ -8,7 +8,6 @@ import com.mintyn.repository.ProductOrderReportRepository;
 import com.mintyn.service.ProductOrderReportService;
 import com.mintyn.utils.FileGenerator;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class ProductOrderReportServiceImpl implements ProductOrderReportService {
 
     private final ProductOrderReportRepository productOrderReportRepository;

@@ -15,5 +15,4 @@ public class OrderDto {
     private String customerPhoneNumber;
     private String productName;
     private Integer orderQuantity;
-
 }

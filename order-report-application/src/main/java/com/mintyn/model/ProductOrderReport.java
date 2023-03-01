@@ -1,15 +1,15 @@
 package com.mintyn.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class ProductOrderReport {
     private Long id;
     @CreationTimestamp
     @Column(updatable = false)
-    private Date createdAt;
+    private LocalDate createdAt;
     private String customerName;
 
     private String customerPhoneNumber;

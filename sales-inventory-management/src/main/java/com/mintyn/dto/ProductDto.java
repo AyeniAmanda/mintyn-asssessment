@@ -19,11 +19,9 @@ public class ProductDto {
     private Integer productQuantity;
     private String productDescription;
 
-
     public static ProductDto toDto(Product product) {
         ProductDto productDto = new ProductDto();
         BeanUtils.copyProperties(product, productDto);
         return productDto;
     }
-
 }

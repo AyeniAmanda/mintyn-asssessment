@@ -23,5 +23,4 @@ public class KafkaListeners {
             throw CommonsModuleException.badRequest("invalid.order");
         }
     }
-
 }

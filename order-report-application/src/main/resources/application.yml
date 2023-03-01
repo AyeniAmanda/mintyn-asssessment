@@ -1,0 +1,26 @@
+server:
+  port: 8089
+
+spring:
+  application:
+    name: order-report-application
+  datasource:
+    password: password
+    url: jdbc:postgresql://localhost:5433/order-report-application
+    username: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+kafka-config:
+  bootstrap-servers: localhost:9098
+  group-id: mintyn

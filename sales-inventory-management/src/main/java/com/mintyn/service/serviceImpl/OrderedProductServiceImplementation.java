@@ -22,13 +22,9 @@ import java.util.List;
 public class OrderedProductServiceImplementation implements OrderedProductService {
 
     private final OrderedProductRepository orderedProductRepository;
-
     private final ProductRepository productRepository;
-
     private final OrderMapper orderMapper;
-
     private final ReportSenderService reportSenderService;
-
 
     public List<OrderResponseDto> createOrder(List<OrderDto> orderRequests) throws CommonsModuleException {
         List<OrderResponseDto> orderResponses = new ArrayList<>();
@@ -62,7 +58,6 @@ public class OrderedProductServiceImplementation implements OrderedProductServic
         return orderResponses;
     }
 
-
     @Override
     public OrderResponseDto getOrder(Long id) throws CommonsModuleException {
         OrderedProduct order = orderedProductRepository.findById(id)
@@ -70,7 +65,6 @@ public class OrderedProductServiceImplementation implements OrderedProductServic
 
         return orderMapper.mapToOrderResponse(order);
     }
-
 
     @Override
     public List<OrderResponseDto> getAllOrders() {
@@ -83,6 +77,4 @@ public class OrderedProductServiceImplementation implements OrderedProductServic
 
         return orderResponses;
     }
-
-
 }

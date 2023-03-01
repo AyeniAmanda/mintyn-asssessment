@@ -4,9 +4,10 @@ import com.mintyn.dto.OrderDto;
 import com.mintyn.dto.OrderResponseDto;
 import com.mintyn.model.OrderedProduct;
 import com.mintyn.model.Product;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-
+@Component
 public class OrderMapper {
 
     public OrderedProduct mapToOrderDto(OrderDto orderDto, Product product){

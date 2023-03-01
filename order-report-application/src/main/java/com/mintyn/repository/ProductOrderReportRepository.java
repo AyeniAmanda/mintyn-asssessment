@@ -10,6 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface ProductOrderReportRepository extends JpaRepository<ProductOrderReport, Long> {
-
     Optional<List<ProductOrderReport>> findAllByCreatedAtBetween(LocalDate earliestDate, LocalDate latestDate);
 }
